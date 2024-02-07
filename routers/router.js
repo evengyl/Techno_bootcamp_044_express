@@ -24,9 +24,15 @@ const expressRouter = express.Router();
 expressRouter.get("/", homePageController.renderView)
 
 expressRouter.get("/categ", categController.getAll)
-expressRouter.post("/categ", categController.getAll)
+expressRouter.get("/categ/:id", categController.getOne)
+expressRouter.post("/categ", categController.createOne)
+expressRouter.patch("/categ/:id", categController.updateOne)
+expressRouter.delete("/categ/:id", categController.deleteOne)
 
+
+expressRouter.get("/contact", contactController.getForm)
 expressRouter.post("/contact", contactController.postMessage)
+
 
 //CRUD users
 expressRouter.get("/users", userController.getAll)
