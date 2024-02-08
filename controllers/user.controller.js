@@ -4,35 +4,36 @@ import { usersModel } from "../models/users.model.js"
 export const userController = {
     getAll : (req, res) => {
 
-        let listAllUsers = usersModel.getAll()
+        //oui ça pique les yeux !!!
+        usersModel.getAll(res)
 
-        res.json(listAllUsers)
     },
 
     getOne : (req, res) => {
         let idToFind = req.params.id
-        let userToFind = users.find(user => user.id == idToFind)
-    
-        res.json(userToFind)
+        console.log("Get By Id Called")
+        usersModel.getOneById(idToFind, res)
+    },
+
+    getOneByName : (req, res) => {
+        let nameTofind = req.params.name
+        console.log("Get By Name Called")
+        usersModel.getOneByName(nameTofind, res)
     },
 
     createOne : (req, res) => {
         let newUser = req.body
-        newUser.id = Math.random()*100
-        res.json(newUser)
+        usersModel.createUser(newUser, res)
     },
 
     updateOne : (req, res) => {
         let idToFind = req.params.id
-        let userToFind = users.find(user => user.id == idToFind)
-        userToFind.name = "Autre user mis à jour"
-        res.json(userToFind)
+        let nameUserToUpdate = req.body.name
+        usersModel.updateUser(nameUserToUpdate, idToFind, res)
     },
 
     deleteOne : (req, res) => {
         let idToFind = req.params.id
-        let userToFind = users.find(user => user.id == idToFind)
-        userToFind.name = "User deleted"
-        res.json(userToFind)
+        usersModel.deleteOne(idToFind, res)
     }
 }

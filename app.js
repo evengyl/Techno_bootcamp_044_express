@@ -1,6 +1,9 @@
 import express from 'express'
 import expressRouter from './routers/router.js'
+import { dbInit } from './models/dbInit.js'
 const app = express()
+
+dbInit.init()
 
 app.use(express.json())
 app.use(express.static('public'))
@@ -10,4 +13,6 @@ app.set("views", "./views")
 app.use("", expressRouter)
 
 const port = 3000
+
 app.listen(port, console.log(`Le serveur écoute sur le port ${port}`))
+console.log(new Date())

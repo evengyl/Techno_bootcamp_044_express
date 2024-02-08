@@ -36,7 +36,8 @@ expressRouter.post("/contact", contactController.postMessage)
 
 //CRUD users
 expressRouter.get("/users", userController.getAll)
-expressRouter.get("/users/:id", userController.getOne)
+expressRouter.get("/users/:id([0-9]*)", userController.getOne)  // /users/1 ou users/tutu
+expressRouter.get("/users/:name([a-zA-Z\-]*)", userController.getOneByName)
 expressRouter.post("/users", userController.createOne)
 expressRouter.put("/users/:id", userController.updateOne)
 expressRouter.delete("/users/:id", userController.deleteOne)
