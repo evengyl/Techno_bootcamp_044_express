@@ -32,7 +32,7 @@ export const usersModel = {
             res.json(row)
         })
     },
-    
+
 
     createUser : (user, res) => {
         let newUser = user
