@@ -6,6 +6,8 @@ import { contactController } from '../controllers/contact.controller.js';
 
 //middlewares
 import { VerifyUsers } from '../middlewares/verify_users.middle.js'
+import { registerUserComplexeValidator } from '../middlewares/validators/createUserComplexe.validator.js'
+import { bodyValidation } from '../middlewares/body-validator.js'
 
 /*explain middleswares
     (req, res)
@@ -48,6 +50,10 @@ expressRouter.get("/users", userController.getAll)
 expressRouter.get("/users/:id([0-9]*)", VerifyUsers.verify, userController.getOne)  // /users/1 ou users/tutu //* user registred only
 expressRouter.get("/users/:name([a-zA-Z\-]*)", VerifyUsers.verify, userController.getOneByName) //* user registred only
 expressRouter.post("/users", VerifyUsers.verify, userController.createOne)//* user registred only
+
+//Validtors middleware avec YUP
+expressRouter.post("/usersComplexe", bodyValidation(registerUserComplexeValidator), userController.createOne)
+
 expressRouter.put("/users/:id", VerifyUsers.verify, userController.updateOne)//* user registred only
 expressRouter.delete("/users/:id", VerifyUsers.verify, userController.deleteOne)//* user registred only
 
