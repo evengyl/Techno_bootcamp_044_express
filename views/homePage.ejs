@@ -15,10 +15,28 @@
   <div class="container">
     <h1>Bonjour et bienvenue</h1>
     <h6>GET : "/" -> Page d'accueil</h6>
+    <h5>Les Catégories</h5>
     <h6>GET : "/categ" -> Array of object [  {}, {}  ] with name and id</h6>
+    <h6>GET : "/categ/:id -> Return object {} with id categ en params</h6>
+    <h6>*(users registred only) POST : "/categ" -> body { name : "newCategName" } -> Create a new categ, return id created</h6>
+    <h6>*(users registred only) PATCH : "/categ/:id" -> body { name : "newNameCateg" } -> Update categ Name by id passed in params</h6>
+    <h6>*(users registred only) DELETE : "/categ/:id -> delete categ by id passed in params</h6>
+    <hr>
+    <h5>Les users</h5>
+    <h6>GET : "/users" -> Array of object [  {}, {}  ] with name and id</h6>
+    <h6>*(users registred only) GET : "/users/:id -> Return object {} with id users en params</h6>
+    <h6>*(users registred only) GET : "/users/:nameUsers -> Return object {} with nameUsers passed in params</h6>
+    <h6>POST : "/users" -> body { name : "newUsersName" } -> Create a new users, return id created</h6>
+    <h6>*(users registred only) PATCH : "/users/:id" -> body { name : "newUsersName" } -> Update users Name by id passed in params</h6>
+    <h6>*(users registred only) DELETE : "/users/:id -> delete users by id passed in params</h6>
     <hr>
     <h5>Si vous voulez contacter les admins de l'API, passer par le endpoint contact post</h5>
-    <h6>POST : "/contact" -> Object { message : String }</h6>
+    <h6>*(users registred only)  POST : "/contact" -> Object { message : String }</h6>
+    <hr>
+    *(users registred only) = vous devez avoir un compte + votre identifiant pour accéder à ces Endpoints
+    <p>il devra se trouver dans le body de chaque réquete, les éléments suivant : </p>
+    <span>--> {"userName" : "loic",</span><br>
+    <span>-->"userId" : "42"}</span>
   </div>
 </body>
 </html>

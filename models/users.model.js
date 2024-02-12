@@ -2,6 +2,7 @@ import { dbInit } from './dbInit.js'
 
 export const usersModel = {
 
+
     getAll : (res) => {
 
         dbInit.getDb().all('SELECT * FROM users', (err, row) => {

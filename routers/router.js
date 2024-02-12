@@ -4,6 +4,15 @@ import { categController } from '../controllers/categ.controller.js';
 import { userController } from '../controllers/user.controller.js'
 import { contactController } from '../controllers/contact.controller.js';
 
+//middlewares
+import { VerifyUsers } from '../middlewares/verify_users.middle.js'
+
+/*explain middleswares
+    (req, res)
+    (req, res, next) --> next()
+
+*/
+
 //pour plus d'infos sur les export import de ES6 -> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
 
 
@@ -25,22 +34,22 @@ expressRouter.get("/", homePageController.renderView)
 
 expressRouter.get("/categ", categController.getAll)
 expressRouter.get("/categ/:id", categController.getOne)
-expressRouter.post("/categ", categController.createOne)
-expressRouter.patch("/categ/:id", categController.updateOne)
-expressRouter.delete("/categ/:id", categController.deleteOne)
+expressRouter.post("/categ", VerifyUsers.verify, categController.createOne)//* user registred only
+expressRouter.patch("/categ/:id", VerifyUsers.verify, categController.updateOne)//* user registred only
+expressRouter.delete("/categ/:id", VerifyUsers.verify, categController.deleteOne)//* user registred only
 
 
 expressRouter.get("/contact", contactController.getForm)
-expressRouter.post("/contact", contactController.postMessage)
+expressRouter.post("/contact", VerifyUsers.verify, contactController.postMessage)//* user registred only
 
 
 //CRUD users
 expressRouter.get("/users", userController.getAll)
-expressRouter.get("/users/:id([0-9]*)", userController.getOne)  // /users/1 ou users/tutu
-expressRouter.get("/users/:name([a-zA-Z\-]*)", userController.getOneByName)
-expressRouter.post("/users", userController.createOne)
-expressRouter.put("/users/:id", userController.updateOne)
-expressRouter.delete("/users/:id", userController.deleteOne)
+expressRouter.get("/users/:id([0-9]*)", VerifyUsers.verify, userController.getOne)  // /users/1 ou users/tutu //* user registred only
+expressRouter.get("/users/:name([a-zA-Z\-]*)", VerifyUsers.verify, userController.getOneByName) //* user registred only
+expressRouter.post("/users", VerifyUsers.verify, userController.createOne)//* user registred only
+expressRouter.put("/users/:id", VerifyUsers.verify, userController.updateOne)//* user registred only
+expressRouter.delete("/users/:id", VerifyUsers.verify, userController.deleteOne)//* user registred only
 
 //404 middleware
 expressRouter.all("*", (req, res) =>{
