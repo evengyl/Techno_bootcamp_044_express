@@ -1,10 +1,13 @@
 import express from 'express'
 import expressRouter from './routers/router.js'
 import { dbInit } from './models/dbInit.js'
+import cors from 'cors'
+
 const app = express()
 
 dbInit.init()
 
+app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
