@@ -3,34 +3,31 @@ import { categsModel } from "../models/categ.model.js"
 export const categController = {
 
     getAll : (req, res) => {
-        let listAllCategs = categsModel.getAll()
-        
-        res.json(listAllCategs)
+        categsModel.getAll(res)
     },
 
     getOne : (req, res) => {
         let id = req.params.id
-        
-        let oneCateg = categsModel.getOne(id)
-        res.json(oneCateg)
+        categsModel.getOneById(id, res)
     },
 
     createOne : (req, res) => {
-        let newCateg = req.body
-        let idCreated = categsModel.createOne(newCateg)
-        res.json({ message : "Category created successfully", code : true, "idCreated" : idCreated})
+        //DTO to MODEL
+        //DTO = Data Transfer Object
+        let newCateg = {
+            name : req.body.name
+        }
+        categsModel.createOne(newCateg, res)
     },
 
     updateOne : (req, res) => {
-        let id = req.params.id
-        let updatedCateg = req.body
-        let idUpdated = categsModel.updateOne(updatedCateg, id)
-        res.json({ message : "Category updated successfully", code : true, idUpdated})
+        let idToUpdate = req.params.id
+        let updatedCategName = req.body.name
+        categsModel.updateOne(idToUpdate, updatedCategName, res)
     },
 
     deleteOne : (req, res) => {
-        let id = req.params.id
-        let idDeleted = categsModel.deleteOne(id)
-        res.json({ message : "Category deleted successfully", code : true, idDeleted})
+        let idToDelete = req.params.id
+        categsModel.deleteOne(idToDelete, res)
     }
 }

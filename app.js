@@ -3,12 +3,14 @@ import expressRouter from './routers/router.js'
 import { dbInit } from './models/dbInit.js'
 import cors from 'cors'
 
+dbInit.init()
 const app = express()
 
-dbInit.init()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.set("views", "./views")
