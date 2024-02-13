@@ -33,10 +33,15 @@
     <h5>Si vous voulez contacter les admins de l'API, passer par le endpoint contact post</h5>
     <h6>*(users registred only)  POST : "/contact" -> Object { message : String }</h6>
     <hr>
+    <h5>Partie sur l'authentification des requète *(users registred only)</h5>
     *(users registred only) = vous devez avoir un compte + votre identifiant pour accéder à ces Endpoints
-    <p>il devra se trouver dans le body de chaque réquete, les éléments suivant : </p>
-    <span>--> {"userName" : "loic",</span><br>
-    <span>-->"userId" : "42"}</span>
+    <p>Il faudra pour ce faire vous connecter par votre front end ou systeme de test comme thunder avec le endpoint</p>
+    <h6>POST "/auth" -> body : </h6>
+    <span>{<br>&nbsp;&nbsp;&nbsp;"userName" : "loic",<br>&nbsp;&nbsp;&nbsp; "userId" : "42"<br> }</span>
+    <h6>Pour Vous créer un compte si vous n'en avez pas il faudra utilisé : </h6>
+    <h6>POST : "/users" -> body { name : "newUsersName" } -> Create a new users, return id created</h6>
+    <span>Quand vous aurez votre compte + votre id secret, vous pourrez lancer le endpoint POST "/auth" ci-dessus. Vous récupérerez un token jwt<br>
+    à mettre dans vos Headers de requète. sous le format "Bearer token"</span>
   </div>
 </body>
 </html>
