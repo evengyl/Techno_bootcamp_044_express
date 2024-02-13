@@ -21,3 +21,9 @@ const port = 3000
 
 app.listen(port, console.log(`Le serveur écoute sur le port ${port}`))
 console.log(new Date())
+
+
+/*
+14 Fev, voir un middleware de droit autorisation
+13 fev aprem, voir Bcrypt 
+*/

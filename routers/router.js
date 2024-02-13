@@ -3,7 +3,7 @@ import { homePageController } from '../controllers/homePage.controller.js'
 import { categController } from '../controllers/categ.controller.js';
 import { userController } from '../controllers/user.controller.js'
 import { contactController } from '../controllers/contact.controller.js';
-import { AuthController } from '../controllers/auth.controller.js';
+import { AuthMiddleware } from '../middlewares/auth.middle.js';
 
 //middlewares
 import { VerifyUsers } from '../middlewares/verify_users.middle.js'
@@ -33,34 +33,34 @@ const expressRouter = express.Router();
 
 
 //Authenticate PART
-expressRouter.post("/auth", VerifyUsers.verify, AuthController.authenticate)
+expressRouter.post("/auth", VerifyUsers.verify, AuthMiddleware.authenticate)
 
 
 
 expressRouter.get("/", homePageController.renderView)
 
-expressRouter.get("/categ", AuthController.verify, categController.getAll)
+expressRouter.get("/categ", categController.getAll)
 expressRouter.get("/categ/:id", categController.getOne)
-expressRouter.post("/categ", categController.createOne)//* user registred only
-expressRouter.patch("/categ/:id", categController.updateOne)//* user registred only
-expressRouter.delete("/categ/:id", categController.deleteOne)//* user registred only
+expressRouter.post("/categ", AuthMiddleware.verify, categController.createOne)//* user registred only
+expressRouter.patch("/categ/:id", AuthMiddleware.verify, categController.updateOne)//* user registred only
+expressRouter.delete("/categ/:id", AuthMiddleware.verify, categController.deleteOne)//* user registred only
 
 
 expressRouter.get("/contact", contactController.getForm)
-expressRouter.post("/contact", contactController.postMessage)//* user registred only
+expressRouter.post("/contact", AuthMiddleware.verify, contactController.postMessage)//* user registred only
 
 
 //CRUD users
 expressRouter.get("/users", userController.getAll)
-expressRouter.get("/users/:id([0-9]*)", userController.getOne)  // /users/1 ou users/tutu //* user registred only
-expressRouter.get("/users/:name([a-zA-Z\-]*)", userController.getOneByName) //* user registred only
-expressRouter.post("/users", AuthController.verify, userController.createOne)//* user registred only
+expressRouter.get("/users/:id([0-9]*)",AuthMiddleware.verify,  userController.getOne)  // /users/1 ou users/tutu //* user registred only
+expressRouter.get("/users/:name([a-zA-Z\-]*)", AuthMiddleware.verify, userController.getOneByName) //* user registred only
+expressRouter.post("/users", AuthMiddleware.verify, userController.createOne)//* user registred only
 
 //Validtors middleware avec YUP
 expressRouter.post("/usersComplexe", bodyValidation(registerUserComplexeValidator), userController.createOne)
 
-expressRouter.put("/users/:id", userController.updateOne)//* user registred only
-expressRouter.delete("/users/:id", userController.deleteOne)//* user registred only
+expressRouter.put("/users/:id", AuthMiddleware.verify, userController.updateOne)//* user registred only
+expressRouter.delete("/users/:id", AuthMiddleware.verify, userController.deleteOne)//* user registred only
 
 //404 middleware
 expressRouter.all("*", (req, res) =>{

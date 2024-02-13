@@ -4,10 +4,9 @@ import { SHA3 } from 'sha3';
 const secret = "??_&42_onvaecrireunephrasesecrete_123456"
 
 
-export const AuthController = {
+export const AuthMiddleware = {
 
     authenticate : (req, res, next) => {
-
         const datas = {
             userName : req.body.userName,
             userId : req.body.userId
@@ -41,8 +40,9 @@ export const AuthController = {
         {
         
             const tokenStoredInHttpReq = req.headers["authorization"].split(" ")[1]
+            //on a en vrai Bearer ey_zijognzlf,nqseufjgbzmoùejfe,ipoktn,zpùkfeoezirhg
             //split, coupe une chaine poour faire un tableau à tout "tel" endroit
-            //[0] "Bearer" [1] "token"
+            //[0] "Bearer" [1] "ey_zijognzlf,nqseufjgbzmoùejfe,ipoktn,zpùkfeoezirhg"
 
 
             const optionsVerify = {
