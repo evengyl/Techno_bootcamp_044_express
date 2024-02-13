@@ -14,9 +14,6 @@ export const VerifyUsers = {
         dbInit.getDb().get('SELECT * FROM users WHERE id = :id AND name = :name', { ":id" : userId, ":name" : userName}, (err, row) => 
         {
 
-            console.log(err)
-            console.log(row)
-
 
             if(err) return res.status(500).json({error : err})
 

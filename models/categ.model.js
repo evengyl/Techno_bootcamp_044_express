@@ -9,7 +9,7 @@ export const categsModel  = {
         dbInit.getDb().all('SELECT * FROM categories', function(err, rows) {
             if(err) return res.status(500).json({ error : err})
 
-            if(row == undefined) return res.status(404).json({ error : "Categories not found" })
+            if(rows == undefined) return res.status(404).json({ error : "Categories not found" })
         
             return res.json(rows)
         

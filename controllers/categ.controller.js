@@ -3,6 +3,8 @@ import { categsModel } from "../models/categ.model.js"
 export const categController = {
 
     getAll : (req, res) => {
+        //pour l'exemple, voici le req.user
+        console.log(req.user)
         categsModel.getAll(res)
     },
 
