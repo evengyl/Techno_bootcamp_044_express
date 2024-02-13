@@ -24,6 +24,6 @@ console.log(new Date())
 
 
 /*
-14 Fev, voir un middleware de droit autorisation
+14 Fev, voir un middleware de droit autorisation { admin, moderetor, user, visitor}
 13 fev aprem, voir Bcrypt 
 */
