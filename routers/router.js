@@ -54,7 +54,7 @@ expressRouter.post("/contact", AuthMiddleware.verify, contactController.postMess
 expressRouter.get("/users", userController.getAll)
 expressRouter.get("/users/:id([0-9]*)",AuthMiddleware.verify,  userController.getOne)  // /users/1 ou users/tutu //* user registred only
 expressRouter.get("/users/:name([a-zA-Z\-]*)", AuthMiddleware.verify, userController.getOneByName) //* user registred only
-expressRouter.post("/users", AuthMiddleware.verify, userController.createOne)//* user registred only
+expressRouter.post("/users", userController.createOne)//* user registred only
 
 //Validtors middleware avec YUP
 expressRouter.post("/usersComplexe", bodyValidation(registerUserComplexeValidator), userController.createOne)

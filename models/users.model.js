@@ -1,4 +1,5 @@
 import { dbInit } from './dbInit.js'
+import bcrypt from 'bcrypt'
 
 export const usersModel = {
 
@@ -36,9 +37,15 @@ export const usersModel = {
 
 
     createUser : (user, res) => {
-        let newUser = user
-        
-        dbInit.getDb().run(`INSERT INTO users (name) VALUES ("${newUser.name}")`, function (err, row){
+        let newUserName = user.name
+
+        //hash du password
+        const saltRound = 13
+        const passwordToHash = user.password
+        const salt = bcrypt.genSaltSync(saltRound)
+        const passwordHash = bcrypt.hashSync(passwordToHash, salt)
+
+        dbInit.getDb().run(`INSERT INTO users (name, password) VALUES ("${newUserName}", "${passwordHash}")`, function (err, row){
 
             if(err) return res.status(500).json({ error: err })
 

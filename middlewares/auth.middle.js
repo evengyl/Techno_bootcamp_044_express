@@ -30,6 +30,7 @@ export const AuthMiddleware = {
             res.json({
                 "token" : token
             })
+
         })
     },
 
